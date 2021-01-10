@@ -15,7 +15,42 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const SingleProductPage = () => {
-  return <h4>single product page</h4>
+  const { id } = useParams();
+  const { history } = useHistory();
+  const { single_product_loading, single_product_error, single_product, fetchSingleProduct } =  useProductsContext();
+
+  useEffect(()=> {
+    fetchSingleProduct(`${url}${id}`)
+  }, [id]);
+
+  useEffect(()=> {
+    if(single_product_error) {
+      setTimeout(()=> {
+        history.push('/');
+      }, 3000)
+    }
+  })
+
+  if(single_product_loading) {
+    return <Loading />
+  }
+  if(single_product_error) {
+    return <Error />
+  }
+
+  const { name, price, description, stock, stars, reviews, product_id, company, images } = single_product;
+  return ( <Wrapper>
+    <PageHero title={name} />
+    <div className="service-center">
+      {images && images.map((image) => {
+        return <div><img src={image.url} alt="single" /></div>}
+      )}
+       
+    </div>
+  </Wrapper>
+
+  )
+
 }
 
 const Wrapper = styled.main`
@@ -50,6 +85,6 @@ const Wrapper = styled.main`
       font-size: 1.25rem;
     }
   }
-`
 
+`
 export default SingleProductPage
