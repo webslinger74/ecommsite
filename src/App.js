@@ -4,6 +4,7 @@ import { Navbar, Sidebar, Footer } from './components'
 import Pages from './pages';
 import { FaOtter } from 'react-icons/fa';
 
+
 function App() {
   const {AboutPage, HomePage, CartPage, ProductsPage, CheckoutPage, SingleProductPage, ErrorPage} = Pages;
   
