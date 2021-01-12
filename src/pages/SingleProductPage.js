@@ -40,12 +40,33 @@ const SingleProductPage = () => {
 
   const { name, price, description, stock, stars, reviews, product_id, company, images } = single_product;
   return ( <Wrapper>
-    <PageHero title={name} />
-    <div className="service-center">
-      {images && images.map((image) => {
-        return <div><img src={image.url} alt="single" /></div>}
-      )}
-       
+    <PageHero title={name} product={single_product} />
+    <div className="section service-center page">
+      <Link to="/products" className="btn">back to products</Link>
+       <div className="products-center">
+         <ProductImages images={images} />
+         <section className="content">
+           <h2>{name}</h2>
+           <Stars stars={stars} reviews={reviews} />
+           <h5 className="price">{price}</h5>
+           <p className="desc">{description}</p>
+            <p className="info">
+              <span>Available : </span>
+              {stock > 0 ? "In Stock" : "out of stock"}
+            </p>
+            <p className="info">
+              <span>SKU : </span>
+              {id}
+            </p>
+            <p className="info">
+              <span>Brand : </span>
+              {company}
+            </p>
+            <hr/>
+            {stock > 0 && <AddToCart product={single_product} />}
+         </section>
+
+       </div>
     </div>
   </Wrapper>
 
