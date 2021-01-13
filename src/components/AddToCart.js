@@ -9,16 +9,33 @@ const AddToCart = ({product}) => {
   const {id, stock, colors} = product;
 
   const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+
+  const increase = () => {
+    if(amount <= stock) {
+      setAmount(amount +1);
+    }
+  }
+
+  const decrease = () => {
+    if(amount >=1){
+    setAmount(amount -1);
+  }
+}
 
   return <Wrapper>
     <div className="colors">
       <span>colors: </span>
       <div>
         {colors.map((color, index) => {
-          return <button onClick={()=> setMainColor()} key={index} className={`${mainColor === color ? 'color-btn active' : 'color-btn'}`} 
+          return <button onClick={()=> setMainColor(color)} key={index} className={`${mainColor === color ? 'color-btn active' : 'color-btn'}`} 
           style={{background:color}}>{mainColor === color ? <FaCheck /> : null }</button>
         })}
       </div>
+    </div>
+    <div className="btn-container">
+      <AmountButtons amount={amount} increase={increase} decrease={decrease} />
+      <Link to="/cart" className="btn">Add to Cart</Link>
     </div>
   </Wrapper>
 }
