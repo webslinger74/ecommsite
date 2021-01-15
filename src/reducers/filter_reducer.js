@@ -48,8 +48,14 @@ if(action.type === UPDATE_FILTERS) {
   return {...state, filters:{...state.filters, [name]:value}}
 }
 if(action.type === FILTER_PRODUCTS) {
-  console.log("filter products reducer called!")
-  return {...state}
+    const { name, value } = action.payload;
+    if(value !== 'all') {
+    const updatedFilterdProducts = state.all_products.filter((product)=> product[name] === value);
+     return {...state, filtered_products:updatedFilterdProducts}
+     }
+
+    return{...state, filtered_products:state.all_products};
+  
 }
   throw new Error(`No Matching "${action.type}" - action type`)
 }

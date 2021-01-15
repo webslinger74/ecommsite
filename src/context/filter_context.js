@@ -58,7 +58,7 @@ const updateFilters = (e) => {
   let name = e.target.name;
   let value = e.target.value;
   dispatch({type:UPDATE_FILTERS, payload: {name, value}})
-  dispatch({type:FILTER_PRODUCTS});
+  dispatch({type:FILTER_PRODUCTS, payload: {name, value}});
   dispatch({type:SORT_PRODUCTS});
 }
 
